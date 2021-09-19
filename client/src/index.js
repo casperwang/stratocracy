@@ -18,12 +18,17 @@ const Main = () => {
   
   const [ws, setWs] = useState(null);
 
-  const start = setWs(webSocket('http://localhost:8000')).then(result => {
+  const connectWebSocket = async () => {
+    await setWs(webSocket('http://localhost:8000'));
+  }
+
+  const start = async () => {
+    await connectWebSocket();
     if (ws) {
       console.log('readyToStart')
       ws.emit('readyToStart', state.playerId);
     }
-  });
+  }
 
   const sendNextStep = (data) => {
     ws.emit('nextStep', data);
