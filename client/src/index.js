@@ -24,10 +24,6 @@ const Main = () => {
 
   const start = async () => {
     await connectWebSocket();
-    if (ws) {
-      console.log('readyToStart')
-      ws.emit('readyToStart', state.playerId);
-    }
   }
 
   const sendNextStep = (data) => {
@@ -42,6 +38,8 @@ const Main = () => {
       ws.on('currentStatus_' + state.playerId, data => {
         state.grids = data.grids;
       });
+      console.log('readyToStart');
+      ws.emit('readyToStart', state.playerId);
     }
   }, [ws]);
 
